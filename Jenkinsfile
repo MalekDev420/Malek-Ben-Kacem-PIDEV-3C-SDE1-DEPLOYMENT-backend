@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Pull (Récupérer le code)') {
+        stage('Pull') {
             steps {
                 checkout scm
                 echo 'Code récupéré avec succès !'
@@ -12,12 +12,13 @@ pipeline {
         stage('Build (mvn package)') {
             steps {
                 dir('spring_backend') {
-                    echo '--- LISTE DES FICHIERS ---'
-                    sh 'ls -la' // <--- C'est la commande magique
-                    echo '--------------------------'
-                    
-                    sh 'chmod +x mvnw'
-                    sh './mvnw clean package -DskipTests'
+                    echo '--- Diagnostic : Liste des fichiers ---'
+                    sh 'ls -la' 
+                    echo '--- Lancement de la construction Maven ---'
+                    // On utilise 'mvn' directement pour éviter le problème du fichier ./mvnw manquant
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
+    }
+}
