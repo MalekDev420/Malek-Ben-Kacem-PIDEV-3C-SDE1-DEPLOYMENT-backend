@@ -12,9 +12,9 @@ pipeline {
         stage('Build (mvn package)') {
             steps {
                 echo 'Lancement de la construction Maven...'
-                // On donne les droits d'exécution au fichier Maven
+                // On s'assure que le fichier est exécutable
                 sh 'chmod +x mvnw'
-                // On lance la création du package (en ignorant les tests pour l'instant, car c'est une autre étape sur ton tableau)
+                // On lance la construction
                 sh './mvnw clean package -DskipTests'
             }
         }
