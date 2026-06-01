@@ -11,13 +11,13 @@ pipeline {
         
         stage('Build (mvn package)') {
             steps {
-                // On demande à Jenkins d'entrer dans le dossier spring_backend pour travailler
                 dir('spring_backend') {
-                    echo 'Construction dans le dossier spring_backend...'
+                    echo '--- LISTE DES FICHIERS ---'
+                    sh 'ls -la' // <--- C'est la commande magique
+                    echo '--------------------------'
+                    
                     sh 'chmod +x mvnw'
                     sh './mvnw clean package -DskipTests'
                 }
             }
         }
-    }
-}
