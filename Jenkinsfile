@@ -11,13 +11,9 @@ pipeline {
         
         stage('Build (mvn package)') {
             steps {
-                dir('spring_backend') {
-                    echo '--- Diagnostic : Liste des fichiers ---'
-                    sh 'ls -la' 
-                    echo '--- Lancement de la construction Maven ---'
-                    // On utilise 'mvn' directement pour éviter le problème du fichier ./mvnw manquant
-                    sh 'mvn clean package -DskipTests'
-                }
+                echo 'Lancement de la construction Maven à la racine...'
+                // Si ton code est dans spring_backend, on entre dedans seulement pour la commande
+                sh 'cd spring_backend && mvn clean package -DskipTests'
             }
         }
     }
