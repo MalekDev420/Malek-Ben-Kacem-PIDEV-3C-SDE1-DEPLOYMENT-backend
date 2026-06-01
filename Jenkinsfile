@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Pull (Récupérer le code)') {
             steps {
-                // Cette commande dit à Jenkins de télécharger le code depuis GitHub
                 checkout scm
                 echo 'Code récupéré avec succès !'
             }
@@ -12,9 +11,11 @@ pipeline {
         
         stage('Build (mvn package)') {
             steps {
-                // On simule la construction du projet pour vérifier que la connexion marche
-                echo 'Création du package Maven en cours...'
-                // sh './mvnw clean package' (On activera cette vraie commande juste après !)
+                echo 'Lancement de la construction Maven...'
+                // On donne les droits d'exécution au fichier Maven
+                sh 'chmod +x mvnw'
+                // On lance la création du package (en ignorant les tests pour l'instant, car c'est une autre étape sur ton tableau)
+                sh './mvnw clean package -DskipTests'
             }
         }
     }
