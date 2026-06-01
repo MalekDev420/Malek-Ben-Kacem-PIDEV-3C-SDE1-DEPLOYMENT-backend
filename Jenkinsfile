@@ -11,11 +11,12 @@ pipeline {
         
         stage('Build (mvn package)') {
             steps {
-                echo 'Lancement de la construction Maven...'
-                // On s'assure que le fichier est exécutable
-                sh 'chmod +x mvnw'
-                // On lance la construction
-                sh './mvnw clean package -DskipTests'
+                // On demande à Jenkins d'entrer dans le dossier spring_backend pour travailler
+                dir('spring_backend') {
+                    echo 'Construction dans le dossier spring_backend...'
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
             }
         }
     }
